@@ -40,7 +40,7 @@ endef
 WITH_OPENSSL ?= y
 ifeq ($(WITH_OPENSSL),y)
 CFLAGS += -DOPENSSL_FOUND=1 -DOPENSSL_API_COMPAT=10100
-LDFLAGS += -lcrypto
+override LDFLAGS += -lcrypto
 endif #require OpenSSL
 
 srcs := regression_1000.c
@@ -150,11 +150,11 @@ CFLAGS += -Wall -Wcast-align -Werror \
 
 CFLAGS += -g3
 
-LDFLAGS += -L$(OPTEE_CLIENT_EXPORT)/lib -lteec
+override LDFLAGS += -L$(OPTEE_CLIENT_EXPORT)/lib -lteec
 ifeq ($(CFG_PKCS11_TA),y)
-LDFLAGS += -lckteec
+override LDFLAGS += -lckteec
 endif
-LDFLAGS += -lpthread -lm
+override LDFLAGS += -lpthread -lm
 
 .PHONY: all
 all: xtest
